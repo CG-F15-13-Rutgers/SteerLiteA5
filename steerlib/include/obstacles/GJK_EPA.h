@@ -21,7 +21,7 @@ namespace SteerLib
     class STEERLIB_API GJK_EPA
     {
         public:
-			GJK_EPA();
+			GJK_EPA(); //default contructor
 
             /*
              *
@@ -126,8 +126,28 @@ namespace SteerLib
              *  original version of polygon1
              *  DO NOT MODIFY polygon1.xml
              */
+			
             static bool intersect(float& return_penetration_depth, Util::Vector& return_penetration_vector, const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB);
+			/*BELOW ARE NEWLY ADDED FUNCTIONS*/
+			
+			
+				static bool GJK(const std::vector<Util::Vector>& polygonA, const std::vector<Util::Vector>& polygonB, std::vector<Util::Vector>& simplex);
+				//using the standard vector class to contain vector objects from the util class
+				static Util::Vector Support(std::vector<Util::Vector> polygonA, std::vector<Util::Vector> polygonB, Util::Vector direction);
 
+				static Util::Vector GetFarthestPoint(std::vector<Util::Vector>& polygon, Util::Vector direction);
+
+				static Util::Vector GetClosestPointToOrigin(Util::Vector pointA, Util::Vector pointB);
+
+				static bool containsOrigin(std::vector<Util::Vector>& simplex, Util::Vector& direction);
+
+				static void EPA(float& penDepth, Util::Vector& penVector, const std::vector<Util::Vector>& polygonA, const std::vector<Util::Vector>& polygonB, std::vector<Util::Vector>& simplex);
+			     
+				static Util::Vector FindClosestEdge(std::vector<Util::Vector>& simplex, float& eDistance, Util::Vector& eNormal, int& eIndex);
+				static void printSimplexList(std::vector<Util::Vector> simplex);
+				static void printPoint(Util::Vector point);
+				static void printEdgeInfo(int index, float distance, Util::Vector normal);
+			
         private:
 
     }; // class GJK_EPA
